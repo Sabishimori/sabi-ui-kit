@@ -167,32 +167,23 @@ export const MasterFlowSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const stepsTrackRef = useRef<HTMLDivElement | null>(null);
 
-  // GSAP Responsive ScrollTrigger MatchMedia implementation
+  // GSAP scroll trigger without hiding elements initially
   useEffect(() => {
-    // create
     const mm = gsap.matchMedia();
 
-    // add a media query. When it matches, the associated function will run
     mm.add('(min-width: 800px)', () => {
-      // this setup code only runs when viewport is at least 800px wide
       if (sectionRef.current) {
-        gsap.from('.master-flow-step-btn', {
-          y: 20,
-          opacity: 0,
-          stagger: 0.04,
-          duration: 0.5,
+        gsap.from(sectionRef.current, {
+          y: 30,
+          duration: 0.6,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top 75%',
+            start: 'top 85%',
             toggleActions: 'play none none none',
           },
         });
       }
-
-      return () => {
-        // custom cleanup code here
-      };
     });
 
     return () => {
@@ -237,10 +228,10 @@ export const MasterFlowSection: React.FC = () => {
           </div>
         </div>
 
-        {/* 14 Stage Horizontal Navigation Bar */}
+        {/* 14 Stage Naturally Wrapped Button Grid (No Scrolling) */}
         <div 
           ref={stepsTrackRef}
-          className="mt-8 flex gap-2 overflow-x-auto pb-4 pt-1 no-scrollbar"
+          className="mt-8 flex flex-wrap items-center gap-2 sm:gap-2.5 pt-1"
         >
           {FLOW_STEPS.map((step, idx) => {
             const isActive = idx === activeStepIndex;
@@ -251,7 +242,7 @@ export const MasterFlowSection: React.FC = () => {
                   sounds.playPop();
                   setActiveStepIndex(idx);
                 }}
-                className={`master-flow-step-btn shrink-0 px-4 py-2.5 rounded-2xl border-2 transition-all flex items-center gap-2 text-xs font-main ${
+                className={`master-flow-step-btn px-4 py-2.5 rounded-2xl border-2 transition-all flex items-center gap-2 text-xs font-main ${
                   isActive
                     ? 'bg-[#1a1a1a] text-white border-[#0a0a0a] shadow-lg scale-105 z-10'
                     : 'bg-white text-[#111111] border-[#0a0a0a]/10 hover:border-[#0a0a0a]/40 hover:bg-[#ECEAE6]'
