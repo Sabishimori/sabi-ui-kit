@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  :root {
+    --bg-color: #F4F3F1;
+    --border-frame: #0a0a0a;
+    --text-dark: #111111;
+    --text-muted: #9a9a9a;
+    --text-subcopy: #8a8a8a;
+    --text-nav: #6b6b6b;
+    --btn-dark: #1a1a1a;
+  }
+
+  html {
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color-scheme: light;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    overflow-x: clip;
+    min-height: 100vh;
+  }
+}
+
+/* 2px Solid Black Outer Viewport Frame */
+.voral-viewport-frame {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  border: 2px solid var(--border-frame);
+  box-sizing: border-box;
+}
+
+/* Voral Pill Buttons */
+.voral-btn-pill {
+  background-color: var(--btn-dark);
+  color: #ffffff;
+  border-radius: 9999px;
+  padding: 11px 24px;
+  font-size: 13.5px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.voral-btn-pill:hover {
+  transform: scale(1.03);
+  background-color: #000000;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.26);
+}
+
+.voral-btn-pill:active {
+  transform: scale(0.97);
+}
+
+/* Secondary Light Pill */
+.voral-btn-pill-light {
+  background-color: #ffffff;
+  color: var(--text-dark);
+  border: 1.5px solid var(--border-frame);
+  border-radius: 9999px;
+  padding: 10px 22px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.voral-btn-pill-light:hover {
+  transform: scale(1.02);
+  background-color: #ECEAE6;
+}
+
+/* Voral 2-Line Headline Style */
+.voral-headline-1 {
+  color: var(--text-muted);
+  font-weight: 400;
+  display: block;
+}
+
+.voral-headline-2 {
+  color: var(--text-dark);
+  font-weight: 700;
+  display: block;
+}
+
+/* Voral 2px Box Cards */
+.voral-card {
+  background-color: #ffffff;
+  border: 1.5px solid #0a0a0a;
+  border-radius: 24px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+/* Halftone Vector Background Dot Grid */
+.halftone-dot-pattern {
+  background-image: radial-gradient(#1a1a1a 1.2px, transparent 1.2px);
+  background-size: 16px 16px;
+  background-position: 0 0;
+  opacity: 0.08;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c8c5be;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1a1a1a;
+}
