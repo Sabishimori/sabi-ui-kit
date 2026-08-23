@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Compass, 
@@ -17,7 +17,7 @@ import {
   ChevronRight, 
   ArrowUpRight,
   FolderOpen,
-  Image as ImageIcon
+  X
 } from 'lucide-react';
 import { RESOURCES_100_DATA, ResourceItem } from '../../data/resourcesData';
 import { sounds } from '../../utils/audio';
@@ -28,6 +28,25 @@ export const ResourcesPage: React.FC = () => {
   const [selectedResource, setSelectedResource] = useState<ResourceItem | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState<number>(36);
+
+  // Lock body scroll when modal is open and listen for Esc key
+  useEffect(() => {
+    if (selectedResource) {
+      document.body.style.overflow = 'hidden';
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          setSelectedResource(null);
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = 'unset';
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [selectedResource]);
 
   const categories: { id: string; label: string; count: number; icon: React.FC<{ className?: string }> }[] = useMemo(() => {
     return [
@@ -78,7 +97,7 @@ export const ResourcesPage: React.FC = () => {
     <div className="space-y-12 sm:space-y-16 pb-16 sm:pb-24 w-full">
       
       {/* 1. Header & Search Hub (1920px Fluid Full Width) */}
-      <section className="px-6 sm:px-12 lg:px-16 2xl:px-24 max-w-[1780px] mx-auto w-full pt-2 sm:pt-4">
+      <section className="px-4 sm:px-8 lg:px-16 2xl:px-24 max-w-[1780px] mx-auto w-full pt-2 sm:pt-4">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 border-b-2 border-[#0a0a0a]/10 pb-10">
           <div className="space-y-3.5 max-w-3xl">
             <div className="flex items-center gap-2">
@@ -126,8 +145,8 @@ export const ResourcesPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Category Filter Pills Bar (Wrapped, No Scroll) */}
-        <div className="mt-8 flex flex-wrap items-center gap-2">
+        {/* Category Filter Pills Bar (Wrapped, Fully Responsive) */}
+        <div className="mt-8 flex flex-wrap items-center gap-2 sm:gap-2.5">
           {categories.map((cat) => {
             const isActive = activeCategory === cat.id;
             const Icon = cat.icon;
@@ -158,8 +177,8 @@ export const ResourcesPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 2. Resources Grid Matching Exact Editorial Reference Card Design */}
-      <section className="px-6 sm:px-12 lg:px-16 2xl:px-24 max-w-[1780px] mx-auto w-full">
+      {/* 2. Responsive Resources Grid */}
+      <section className="px-4 sm:px-8 lg:px-16 2xl:px-24 max-w-[1780px] mx-auto w-full">
         {filteredResources.length === 0 ? (
           <div className="text-center py-20 bg-white rounded-3xl border border-[#0a0a0a]/10 space-y-4">
             <FolderOpen className="h-12 w-12 text-[#666666] mx-auto" />
@@ -180,7 +199,7 @@ export const ResourcesPage: React.FC = () => {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {displayedResources.map((item) => (
               <motion.div
                 key={item.id}
@@ -192,11 +211,11 @@ export const ResourcesPage: React.FC = () => {
                   sounds.playPop();
                   setSelectedResource(item);
                 }}
-                className="bg-white rounded-3xl border border-[#0a0a0a]/12 p-6 sm:p-8 flex flex-col justify-between h-[580px] shadow-sm hover:shadow-xl transition-all duration-300 group cursor-pointer relative overflow-hidden"
+                className="bg-white rounded-3xl border border-[#0a0a0a]/12 p-5 sm:p-7 flex flex-col justify-between min-h-[520px] shadow-sm hover:shadow-xl transition-all duration-300 group cursor-pointer relative overflow-hidden"
               >
                 {/* Card Top Row: Category Index + Slide Number */}
-                <div className="flex items-center justify-between text-xs font-mono text-[#555555] pb-4 border-b border-[#0a0a0a]/5">
-                  <span className="font-bold tracking-wider uppercase text-xs text-[#111111]">
+                <div className="flex items-center justify-between text-xs font-mono text-[#555555] pb-3 border-b border-[#0a0a0a]/5">
+                  <span className="font-bold tracking-wider uppercase text-xs text-[#111111] truncate max-w-[200px]">
                     {item.badge}
                   </span>
                   <span className="font-bold text-xs text-[#666666]">
@@ -204,11 +223,11 @@ export const ResourcesPage: React.FC = () => {
                   </span>
                 </div>
 
-                {/* Center Brand Identity (Exact circular badge & large bold title) */}
+                {/* Center Brand Identity */}
                 <div className="flex flex-col items-center justify-center my-3 space-y-2 text-center">
                   {/* Circular Brand Logo Badge or Icon */}
                   <div 
-                    className="w-14 h-14 rounded-full flex items-center justify-center font-main font-black text-xl shadow-md border-2 border-white transform group-hover:scale-110 transition-transform duration-300 overflow-hidden bg-white"
+                    className="w-13 h-13 sm:w-14 sm:h-14 rounded-full flex items-center justify-center font-main font-black text-xl shadow-md border-2 border-white transform group-hover:scale-110 transition-transform duration-300 overflow-hidden bg-white shrink-0"
                     style={{ backgroundColor: item.logoBg, color: item.logoColor }}
                   >
                     {item.iconUrl ? (
@@ -226,13 +245,13 @@ export const ResourcesPage: React.FC = () => {
                   </div>
 
                   {/* Resource Title */}
-                  <h3 className="font-main font-black text-2xl sm:text-3xl text-[#111111] tracking-tight group-hover:text-[#366299] transition-colors truncate max-w-full px-2">
+                  <h3 className="font-main font-black text-xl sm:text-2xl 2xl:text-3xl text-[#111111] tracking-tight group-hover:text-[#366299] transition-colors truncate max-w-full px-2">
                     {item.name}
                   </h3>
                 </div>
 
                 {/* High-Resolution Graphic Preview or Meta Image */}
-                <div className="relative w-full h-[220px] rounded-2xl bg-[#F4F3F1] border border-[#0a0a0a]/10 overflow-hidden flex flex-col justify-between shadow-inner group/preview">
+                <div className="relative w-full h-[200px] sm:h-[220px] rounded-2xl bg-[#F4F3F1] border border-[#0a0a0a]/10 overflow-hidden flex flex-col justify-between shadow-inner group/preview my-2">
                   {item.metaImage ? (
                     <div className="relative w-full h-full overflow-hidden bg-[#111111]">
                       <img 
@@ -252,18 +271,18 @@ export const ResourcesPage: React.FC = () => {
                         }}
                       />
                       {/* Gradient Vignette */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent pointer-events-none" />
                       
                       {/* Floating Meta Tagline */}
                       <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-[11px] font-mono">
-                        <span className="truncate font-bold drop-shadow-md">{item.tagline || item.name}</span>
+                        <span className="truncate font-bold drop-shadow-md mr-2">{item.tagline || item.name}</span>
                         <span className="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-[10px] shrink-0">
                           Preview
                         </span>
                       </div>
                     </div>
                   ) : (
-                    <div className="p-3 w-full h-full flex flex-col justify-between">
+                    <div className="p-3.5 w-full h-full flex flex-col justify-between">
                       {/* Top Fake App Nav Header */}
                       <div className="flex items-center justify-between gap-2 border-b border-[#0a0a0a]/10 pb-2">
                         <div className="flex items-center gap-1.5">
@@ -306,21 +325,21 @@ export const ResourcesPage: React.FC = () => {
                   )}
                 </div>
 
-                {/* Bottom Pill Bar Matching Reference Image (Left: Link / Right: Category Tag) */}
-                <div className="mt-4 pt-3 border-t border-[#0a0a0a]/10 flex items-center justify-between gap-3 text-xs font-mono">
+                {/* Bottom Pill Bar (Left: Link / Right: Category Tag) */}
+                <div className="mt-3 pt-3 border-t border-[#0a0a0a]/10 flex items-center justify-between gap-3 text-xs font-mono">
                   <a
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="flex items-center gap-2 text-[#111111] font-bold hover:text-emerald-600 transition-colors truncate"
+                    className="flex items-center gap-1.5 text-[#111111] font-bold hover:text-emerald-600 transition-colors truncate"
                     title={item.url}
                   >
                     <ExternalLink className="h-3.5 w-3.5 shrink-0 text-[#666666]" />
                     <span className="truncate">{item.url.replace('https://', '').replace('http://', '').replace(/\/$/, '')}</span>
                   </a>
 
-                  <span className="px-3 py-1 rounded-full bg-[#F4F3F1] border border-[#0a0a0a]/10 text-xs font-bold text-[#666666] shrink-0 truncate max-w-[140px]">
+                  <span className="px-2.5 py-1 rounded-full bg-[#F4F3F1] border border-[#0a0a0a]/10 text-xs font-bold text-[#666666] shrink-0 truncate max-w-[130px]">
                     {item.badge}
                   </span>
                 </div>
@@ -346,20 +365,27 @@ export const ResourcesPage: React.FC = () => {
         )}
       </section>
 
-      {/* 3. Deep-Dive Detailed Resource Modal */}
+      {/* 3. Deep-Dive Detailed Resource Modal with Smooth Scrollable Viewport */}
       <AnimatePresence>
         {selectedResource && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm">
+          <div 
+            className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-md p-3 sm:p-6 md:p-8 flex justify-center items-start sm:items-center"
+            onClick={() => {
+              sounds.playPop();
+              setSelectedResource(null);
+            }}
+          >
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-white rounded-3xl border-2 border-[#0a0a0a] max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-10 space-y-6 shadow-2xl relative"
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white rounded-3xl border-2 border-[#0a0a0a] max-w-2xl w-full my-4 sm:my-auto p-5 sm:p-8 md:p-10 space-y-6 shadow-2xl relative max-h-[92vh] sm:max-h-[85vh] overflow-y-auto overscroll-contain"
             >
               {/* Optional High-Res Meta Image Banner */}
               {selectedResource.metaImage && (
-                <div className="relative w-full h-48 sm:h-60 rounded-2xl overflow-hidden border border-[#0a0a0a]/15 bg-black">
+                <div className="relative w-full h-44 sm:h-56 rounded-2xl overflow-hidden border border-[#0a0a0a]/15 bg-black shrink-0">
                   <img 
                     src={selectedResource.metaImage} 
                     alt={selectedResource.name} 
@@ -367,8 +393,8 @@ export const ResourcesPage: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
                   <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white">
-                    <span className="font-mono text-xs text-white/80">{selectedResource.tagline}</span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-mono font-bold">
+                    <span className="font-mono text-xs text-white/90 truncate mr-2">{selectedResource.tagline}</span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-mono font-bold shrink-0">
                       {selectedResource.badge}
                     </span>
                   </div>
@@ -376,17 +402,17 @@ export const ResourcesPage: React.FC = () => {
               )}
 
               {/* Modal Top Header */}
-              <div className="flex items-start justify-between gap-4 border-b border-[#0a0a0a]/10 pb-6">
-                <div className="flex items-center gap-4">
+              <div className="flex items-start justify-between gap-4 border-b border-[#0a0a0a]/10 pb-5">
+                <div className="flex items-center gap-3.5 sm:gap-4">
                   <div
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center font-main font-black text-2xl shadow-md shrink-0 overflow-hidden bg-white"
+                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center font-main font-black text-xl sm:text-2xl shadow-md shrink-0 overflow-hidden bg-white"
                     style={{ backgroundColor: selectedResource.logoBg, color: selectedResource.logoColor }}
                   >
                     {selectedResource.iconUrl ? (
                       <img 
                         src={selectedResource.iconUrl} 
                         alt={selectedResource.name} 
-                        className="w-8 h-8 object-contain rounded-full"
+                        className="w-7 h-7 sm:w-8 sm:h-8 object-contain rounded-full"
                       />
                     ) : (
                       selectedResource.logoText
@@ -395,7 +421,7 @@ export const ResourcesPage: React.FC = () => {
 
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-0.5 rounded-full bg-[#F4F3F1] text-[11px] font-mono font-bold text-[#111111] uppercase border border-[#0a0a0a]/10">
+                      <span className="px-2.5 py-0.5 rounded-full bg-[#F4F3F1] text-[10px] sm:text-[11px] font-mono font-bold text-[#111111] uppercase border border-[#0a0a0a]/10">
                         {selectedResource.categoryLabel}
                       </span>
                       <span className="text-xs font-mono text-[#666666]">
@@ -403,7 +429,7 @@ export const ResourcesPage: React.FC = () => {
                       </span>
                     </div>
 
-                    <h2 className="text-2xl sm:text-3xl font-main font-black text-[#111111] mt-1">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-main font-black text-[#111111] mt-1">
                       {selectedResource.name}
                     </h2>
                   </div>
@@ -414,18 +440,19 @@ export const ResourcesPage: React.FC = () => {
                     sounds.playPop();
                     setSelectedResource(null);
                   }}
-                  className="p-2 rounded-full bg-[#F4F3F1] hover:bg-[#111111] hover:text-white transition-colors text-[#111111]"
+                  className="p-2 sm:p-2.5 rounded-full bg-[#F4F3F1] hover:bg-[#111111] hover:text-white transition-colors text-[#111111] shrink-0"
+                  aria-label="Close modal"
                 >
-                  ✕
+                  <X className="h-4 w-4" />
                 </button>
               </div>
 
               {/* Tagline & Overview */}
               <div className="space-y-2">
-                <h4 className="font-main font-bold text-base text-[#111111]">
+                <h4 className="font-main font-bold text-base sm:text-lg text-[#111111]">
                   {selectedResource.tagline}
                 </h4>
-                <p className="text-sm text-[#555555] leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
                   {selectedResource.desc}
                 </p>
               </div>
@@ -433,10 +460,10 @@ export const ResourcesPage: React.FC = () => {
               {/* What We Use It For */}
               <div className="p-4 rounded-2xl bg-[#F4F3F1] border border-[#0a0a0a]/10 space-y-1.5">
                 <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[#111111]">
-                  <Sparkles className="h-3.5 w-3.5 text-amber-600" />
+                  <Sparkles className="h-3.5 w-3.5 text-amber-600 shrink-0" />
                   <span>What Senior Designers Use It For</span>
                 </div>
-                <p className="text-sm text-[#555555] leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
                   {selectedResource.whatWeUseFor}
                 </p>
               </div>
@@ -444,10 +471,10 @@ export const ResourcesPage: React.FC = () => {
               {/* How We Use It */}
               <div className="p-4 rounded-2xl bg-[#F4F3F1] border border-[#0a0a0a]/10 space-y-1.5">
                 <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[#111111]">
-                  <Layers className="h-3.5 w-3.5 text-blue-600" />
+                  <Layers className="h-3.5 w-3.5 text-blue-600 shrink-0" />
                   <span>How To Integrate In Workflow</span>
                 </div>
-                <p className="text-sm text-[#555555] leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
                   {selectedResource.howWeUseFor}
                 </p>
               </div>
@@ -455,10 +482,10 @@ export const ResourcesPage: React.FC = () => {
               {/* Senior Designer Pro-Tip */}
               <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200/60 space-y-1.5">
                 <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-emerald-800">
-                  <Brain className="h-3.5 w-3.5 text-emerald-600" />
+                  <Brain className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
                   <span>Senior Designer Pro-Tip</span>
                 </div>
-                <p className="text-sm text-emerald-900 leading-relaxed font-medium">
+                <p className="text-xs sm:text-sm text-emerald-900 leading-relaxed font-medium">
                   {selectedResource.seniorTip}
                 </p>
               </div>
@@ -483,7 +510,7 @@ export const ResourcesPage: React.FC = () => {
               )}
 
               {/* Modal Bottom Actions */}
-              <div className="pt-4 border-t border-[#0a0a0a]/10 flex flex-wrap items-center justify-between gap-4">
+              <div className="pt-4 border-t border-[#0a0a0a]/10 flex flex-wrap items-center justify-between gap-3">
                 <button
                   onClick={(e) => handleCopyUrl(selectedResource.url, selectedResource.id, e)}
                   className="voral-btn-pill-light text-xs"
