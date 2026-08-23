@@ -74,7 +74,7 @@ export const PresentationDeckModal: React.FC<PresentationDeckModalProps> = ({
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold text-[#111111] uppercase tracking-widest">
-                VORAL / CLIENT PRESENTATION DECK
+                SABI KIT / CLIENT PRESENTATION DECK
               </span>
               <span className="text-xs text-[#8a8a8a]">•</span>
               <span className="text-xs text-[#6b6b6b] font-mono">
