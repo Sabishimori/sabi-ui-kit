@@ -1,5 +1,6 @@
 {
   "name": "sabi-os-design-system",
+  "homepage": "https://sabi-ui-kit.vercel.app/",
   "private": true,
   "version": "1.0.0",
   "type": "module",

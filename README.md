@@ -3,6 +3,7 @@
 # Sabi Kit ✦ Project OS
 **The Master 28-Stage Product Design Framework & Operational Workbench**
 
+[![Live Demo](https://img.shields.io/badge/Live_App-sabi--ui--kit.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://sabi-ui-kit.vercel.app/)
 [![React](https://img.shields.io/badge/React-18.x-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.x-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
@@ -18,7 +19,9 @@
   A master design system, operational workbench, and interactive cognitive laboratory engineered for elite product designers, design engineers, and scaling startups.
 </p>
 
-[Explore Framework](#-the-28-stage-product-framework) • [21 Laws of UX](#-21-recognized-laws-of-ux) • [Design Vault (200+)](#-curated-design-vault-200) • [Quick Start](#-quick-start)
+### 🌐 **[Launch Live Application ➔ https://sabi-ui-kit.vercel.app/](https://sabi-ui-kit.vercel.app/)**
+
+[🚀 Live Demo](https://sabi-ui-kit.vercel.app/) • [Explore Framework](#-the-28-stage-product-framework) • [21 Laws of UX](#-21-recognized-laws-of-ux) • [Design Vault (200+)](#-curated-design-vault-200) • [Quick Start](#-quick-start)
 
 </div>
 
