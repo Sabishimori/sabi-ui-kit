@@ -139,3 +139,22 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #1a1a1a;
 }
+
+/* Modal Smooth Custom Scrollbar */
+.custom-modal-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #888888 transparent;
+}
+.custom-modal-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-modal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-modal-scroll::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  border-radius: 9999px;
+}
+.custom-modal-scroll::-webkit-scrollbar-thumb:hover {
+  background: #111111;
+}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, BookOpen, Layers, ArrowLeft } from 'lucide-react';
 import { ALL_SLIDES } from '../../data/slidesData';
@@ -41,7 +42,7 @@ export const PresentationDeckModal: React.FC<PresentationDeckModalProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, currentIndex]);
 
-  if (!isOpen) return null;
+  if (!isOpen || typeof document === 'undefined') return null;
 
   const currentSlide = ALL_SLIDES[currentIndex];
 
@@ -55,8 +56,8 @@ export const PresentationDeckModal: React.FC<PresentationDeckModalProps> = ({
     setCurrentIndex((prev) => (prev === 0 ? ALL_SLIDES.length - 1 : prev - 1));
   };
 
-  return (
-    <div className="fixed inset-0 z-50 bg-[#F4F3F1] text-[#111111] flex flex-col justify-between overflow-hidden select-none border-2 border-[#0a0a0a]">
+  return createPortal(
+    <div className="fixed inset-0 z-[99999] bg-[#F4F3F1] text-[#111111] flex flex-col justify-between overflow-hidden select-none border-2 border-[#0a0a0a] w-screen h-screen">
       {/* Top Deck Bar */}
       <div className="px-6 py-4 bg-white border-b-2 border-[#0a0a0a] flex items-center justify-between gap-4 z-20 shadow-sm">
         <div className="flex items-center gap-3">
@@ -226,6 +227,7 @@ export const PresentationDeckModal: React.FC<PresentationDeckModalProps> = ({
           })}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
