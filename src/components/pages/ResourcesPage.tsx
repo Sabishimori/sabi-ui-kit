@@ -365,71 +365,53 @@ export const ResourcesPage: React.FC = () => {
         )}
       </section>
 
-      {/* 3. Deep-Dive Detailed Resource Modal with Smooth Scrollable Viewport */}
+      {/* 3. Deep-Dive Detailed Resource Modal with Guaranteed Viewport Ergonomics & Scrollable Content */}
       <AnimatePresence>
         {selectedResource && (
           <div 
-            className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-md p-3 sm:p-6 md:p-8 flex justify-center items-start sm:items-center"
+            className="fixed inset-0 z-50 overflow-y-auto bg-black/60 p-3 sm:p-6 flex items-center justify-center"
             onClick={() => {
               sounds.playPop();
               setSelectedResource(null);
             }}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              initial={{ opacity: 0, scale: 0.96, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              exit={{ opacity: 0, scale: 0.96, y: 15 }}
+              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-3xl border-2 border-[#0a0a0a] max-w-2xl w-full my-4 sm:my-auto p-5 sm:p-8 md:p-10 space-y-6 shadow-2xl relative max-h-[92vh] sm:max-h-[85vh] overflow-y-auto overscroll-contain"
+              className="bg-white rounded-3xl border-2 border-[#0a0a0a] max-w-2xl w-full max-h-[88vh] sm:max-h-[85vh] flex flex-col shadow-2xl relative overflow-hidden my-auto"
             >
-              {/* Optional High-Res Meta Image Banner */}
-              {selectedResource.metaImage && (
-                <div className="relative w-full h-44 sm:h-56 rounded-2xl overflow-hidden border border-[#0a0a0a]/15 bg-black shrink-0">
-                  <img 
-                    src={selectedResource.metaImage} 
-                    alt={selectedResource.name} 
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-                  <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white">
-                    <span className="font-mono text-xs text-white/90 truncate mr-2">{selectedResource.tagline}</span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-mono font-bold shrink-0">
-                      {selectedResource.badge}
-                    </span>
-                  </div>
-                </div>
-              )}
-
-              {/* Modal Top Header */}
-              <div className="flex items-start justify-between gap-4 border-b border-[#0a0a0a]/10 pb-5">
-                <div className="flex items-center gap-3.5 sm:gap-4">
+              {/* 1. Pinned Header with Title & Close Button */}
+              <div className="flex items-center justify-between gap-4 p-4 sm:p-6 border-b border-[#0a0a0a]/10 shrink-0 bg-white z-10">
+                <div className="flex items-center gap-3 sm:gap-4 truncate">
                   <div
-                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center font-main font-black text-xl sm:text-2xl shadow-md shrink-0 overflow-hidden bg-white"
+                    className="w-11 h-11 sm:w-13 sm:h-13 rounded-2xl flex items-center justify-center font-main font-black text-lg sm:text-xl shadow-sm shrink-0 overflow-hidden bg-white border border-[#0a0a0a]/10"
                     style={{ backgroundColor: selectedResource.logoBg, color: selectedResource.logoColor }}
                   >
                     {selectedResource.iconUrl ? (
                       <img 
                         src={selectedResource.iconUrl} 
                         alt={selectedResource.name} 
-                        className="w-7 h-7 sm:w-8 sm:h-8 object-contain rounded-full"
+                        className="w-6 h-6 sm:w-7 sm:h-7 object-contain rounded-full"
                       />
                     ) : (
                       selectedResource.logoText
                     )}
                   </div>
 
-                  <div>
+                  <div className="truncate">
                     <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-0.5 rounded-full bg-[#F4F3F1] text-[10px] sm:text-[11px] font-mono font-bold text-[#111111] uppercase border border-[#0a0a0a]/10">
+                      <span className="px-2 py-0.5 rounded-full bg-[#F4F3F1] text-[10px] font-mono font-bold text-[#111111] uppercase border border-[#0a0a0a]/10">
                         {selectedResource.categoryLabel}
                       </span>
-                      <span className="text-xs font-mono text-[#666666]">
+                      <span className="text-[11px] font-mono text-[#666666]">
                         #{selectedResource.num}
                       </span>
                     </div>
 
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-main font-black text-[#111111] mt-1">
+                    <h2 className="text-xl sm:text-2xl font-main font-black text-[#111111] mt-0.5 truncate">
                       {selectedResource.name}
                     </h2>
                   </div>
@@ -447,70 +429,91 @@ export const ResourcesPage: React.FC = () => {
                 </button>
               </div>
 
-              {/* Tagline & Overview */}
-              <div className="space-y-2">
-                <h4 className="font-main font-bold text-base sm:text-lg text-[#111111]">
-                  {selectedResource.tagline}
-                </h4>
-                <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
-                  {selectedResource.desc}
-                </p>
-              </div>
-
-              {/* What We Use It For */}
-              <div className="p-4 rounded-2xl bg-[#F4F3F1] border border-[#0a0a0a]/10 space-y-1.5">
-                <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[#111111]">
-                  <Sparkles className="h-3.5 w-3.5 text-amber-600 shrink-0" />
-                  <span>What Senior Designers Use It For</span>
-                </div>
-                <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
-                  {selectedResource.whatWeUseFor}
-                </p>
-              </div>
-
-              {/* How We Use It */}
-              <div className="p-4 rounded-2xl bg-[#F4F3F1] border border-[#0a0a0a]/10 space-y-1.5">
-                <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[#111111]">
-                  <Layers className="h-3.5 w-3.5 text-blue-600 shrink-0" />
-                  <span>How To Integrate In Workflow</span>
-                </div>
-                <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
-                  {selectedResource.howWeUseFor}
-                </p>
-              </div>
-
-              {/* Senior Designer Pro-Tip */}
-              <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200/60 space-y-1.5">
-                <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-emerald-800">
-                  <Brain className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  <span>Senior Designer Pro-Tip</span>
-                </div>
-                <p className="text-xs sm:text-sm text-emerald-900 leading-relaxed font-medium">
-                  {selectedResource.seniorTip}
-                </p>
-              </div>
-
-              {/* Sample Prompt (If available) */}
-              {selectedResource.promptExample && (
-                <div className="p-4 rounded-2xl bg-[#111111] text-white space-y-2">
-                  <div className="flex items-center justify-between text-xs font-mono text-emerald-400 font-bold uppercase">
-                    <span>Ready-to-Use Prompt</span>
-                    <button
-                      onClick={(e) => handleCopyUrl(selectedResource.promptExample!, 'prompt', e)}
-                      className="flex items-center gap-1 text-[11px] text-white/80 hover:text-white"
-                    >
-                      {copiedId === 'prompt' ? <Check className="h-3 w-3 text-emerald-400" /> : <Copy className="h-3 w-3" />}
-                      <span>{copiedId === 'prompt' ? 'Copied' : 'Copy Prompt'}</span>
-                    </button>
+              {/* 2. Scrollable Middle Body (100% Smooth & Complete) */}
+              <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5 overscroll-contain">
+                {/* Optional High-Res Meta Image Banner */}
+                {selectedResource.metaImage && (
+                  <div className="relative w-full h-44 sm:h-52 rounded-2xl overflow-hidden border border-[#0a0a0a]/15 bg-black shrink-0">
+                    <img 
+                      src={selectedResource.metaImage} 
+                      alt={selectedResource.name} 
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute bottom-2.5 left-3.5 right-3.5 flex items-center justify-between text-white">
+                      <span className="font-mono text-xs text-white/90 truncate mr-2">{selectedResource.tagline}</span>
+                      <span className="px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-[10px] font-mono font-bold shrink-0">
+                        {selectedResource.badge}
+                      </span>
+                    </div>
                   </div>
-                  <p className="text-xs font-mono text-white/80 bg-white/5 p-3 rounded-xl border border-white/10 leading-relaxed">
-                    {selectedResource.promptExample}
+                )}
+
+                {/* Tagline & Overview */}
+                <div className="space-y-1.5">
+                  <h4 className="font-main font-bold text-base text-[#111111]">
+                    {selectedResource.tagline}
+                  </h4>
+                  <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+                    {selectedResource.desc}
                   </p>
                 </div>
-              )}
 
-              {/* Modal Bottom Actions */}
-              <div className="pt-4 border-t border-[#0a0a0a]/10 flex flex-wrap items-center justify-between gap-3">
+                {/* What We Use It For */}
+                <div className="p-4 rounded-2xl bg-[#F4F3F1] border border-[#0a0a0a]/10 space-y-1.5">
+                  <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[#111111]">
+                    <Sparkles className="h-3.5 w-3.5 text-amber-600 shrink-0" />
+                    <span>What Senior Designers Use It For</span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+                    {selectedResource.whatWeUseFor}
+                  </p>
+                </div>
+
+                {/* How We Use It */}
+                <div className="p-4 rounded-2xl bg-[#F4F3F1] border border-[#0a0a0a]/10 space-y-1.5">
+                  <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[#111111]">
+                    <Layers className="h-3.5 w-3.5 text-blue-600 shrink-0" />
+                    <span>How To Integrate In Workflow</span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
+                    {selectedResource.howWeUseFor}
+                  </p>
+                </div>
+
+                {/* Senior Designer Pro-Tip */}
+                <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200/60 space-y-1.5">
+                  <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-emerald-800">
+                    <Brain className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                    <span>Senior Designer Pro-Tip</span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-emerald-900 leading-relaxed font-medium">
+                    {selectedResource.seniorTip}
+                  </p>
+                </div>
+
+                {/* Sample Prompt (If available) */}
+                {selectedResource.promptExample && (
+                  <div className="p-4 rounded-2xl bg-[#111111] text-white space-y-2">
+                    <div className="flex items-center justify-between text-xs font-mono text-emerald-400 font-bold uppercase">
+                      <span>Ready-to-Use Prompt</span>
+                      <button
+                        onClick={(e) => handleCopyUrl(selectedResource.promptExample!, 'prompt', e)}
+                        className="flex items-center gap-1 text-[11px] text-white/80 hover:text-white"
+                      >
+                        {copiedId === 'prompt' ? <Check className="h-3 w-3 text-emerald-400" /> : <Copy className="h-3 w-3" />}
+                        <span>{copiedId === 'prompt' ? 'Copied' : 'Copy Prompt'}</span>
+                      </button>
+                    </div>
+                    <p className="text-xs font-mono text-white/80 bg-white/5 p-3 rounded-xl border border-white/10 leading-relaxed">
+                      {selectedResource.promptExample}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* 3. Pinned Sticky Footer with Action Buttons */}
+              <div className="p-3.5 sm:p-4 border-t border-[#0a0a0a]/10 shrink-0 bg-[#FAFAF9] z-10 flex flex-wrap items-center justify-between gap-3">
                 <button
                   onClick={(e) => handleCopyUrl(selectedResource.url, selectedResource.id, e)}
                   className="voral-btn-pill-light text-xs"
