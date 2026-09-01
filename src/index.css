@@ -122,22 +122,16 @@
   opacity: 0.08;
 }
 
-/* Custom Scrollbar */
+/* Seamless Clean Scrollbar (Hidden visible bar, smooth scroll active) */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
 ::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-color);
-}
-
-::-webkit-scrollbar-thumb {
-  background: #c8c5be;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #1a1a1a;
+  display: none; /* Chrome, Safari, Edge */
+  width: 0px;
+  background: transparent;
 }
 
 /* Modal Smooth Custom Scrollbar */
