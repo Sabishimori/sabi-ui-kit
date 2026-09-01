@@ -33,7 +33,13 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
-      setTimeString(now.toUTCString().slice(17, 22) + ' UTC');
+      const timeStr = now.toLocaleTimeString('en-US', {
+        timeZone: 'Asia/Kolkata',
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+      setTimeString(`${timeStr} IST`);
     };
     updateTime();
     const interval = setInterval(updateTime, 1000);
@@ -131,10 +137,10 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
               {isMuted ? <VolumeX className="h-3.5 w-3.5" /> : <Volume2 className="h-3.5 w-3.5" />}
             </button>
 
-            {/* Live Clock / Location Pill */}
+            {/* Live Clock / Location Pill (Indian Bangalore Time) */}
             <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/10 text-white/80 font-mono text-xs">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span>{timeString || '12:00 UTC'}</span>
+              <span>{timeString || '18:30 IST'}</span>
             </div>
 
             {/* Mobile Menu Hamburger */}

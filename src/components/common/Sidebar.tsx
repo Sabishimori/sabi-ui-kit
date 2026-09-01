@@ -40,7 +40,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
-      setTimeString(now.toUTCString().slice(17, 22) + ' UTC');
+      const timeStr = now.toLocaleTimeString('en-US', {
+        timeZone: 'Asia/Kolkata',
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+      setTimeString(`${timeStr} IST`);
     };
     updateTime();
     const interval = setInterval(updateTime, 1000);

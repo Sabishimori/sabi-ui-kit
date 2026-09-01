@@ -9,7 +9,14 @@ export const Footer: React.FC = () => {
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
-      setTimeString(now.toUTCString().slice(17, 25) + ' UTC');
+      const timeStr = now.toLocaleTimeString('en-US', {
+        timeZone: 'Asia/Kolkata',
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      });
+      setTimeString(`${timeStr} IST`);
     };
     updateTime();
     const interval = setInterval(updateTime, 1000);
@@ -67,8 +74,8 @@ export const Footer: React.FC = () => {
           {/* Telemetry Status Box */}
           <div className="flex flex-wrap items-center gap-3">
             <div className="px-4 py-2.5 rounded-2xl bg-white border border-[#0a0a0a]/15 shadow-sm text-xs font-mono">
-              <span className="text-[#8a8a8a] block text-[10px] uppercase font-bold">SYSTEM TIME</span>
-              <span className="font-bold text-[#111111]">{timeString || '12:00:00 UTC'}</span>
+              <span className="text-[#8a8a8a] block text-[10px] uppercase font-bold">SYSTEM TIME (BLR)</span>
+              <span className="font-bold text-[#111111]">{timeString || '18:30:00 IST'}</span>
             </div>
 
             <div className="px-4 py-2.5 rounded-2xl bg-white border border-[#0a0a0a]/15 shadow-sm text-xs font-mono">
