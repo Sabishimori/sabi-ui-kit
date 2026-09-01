@@ -69,7 +69,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'home', label: 'Overview', sub: 'Hero & Insights', icon: Home },
     { id: 'workspace', label: 'Workspace', sub: 'Active Tool Suite', icon: Wrench },
     { id: 'framework', label: 'Framework', sub: '28-Stage Docs', icon: Layers },
-    { id: 'widgets', label: 'Essential Apps', sub: 'Widget Matrix', icon: Smartphone },
+    { id: 'widgets', label: 'Essential Widgets', sub: 'Widget Matrix', icon: Smartphone },
     { id: 'laws', label: 'Laws of UX', sub: 'Cognitive Lab', icon: Brain },
     { id: 'resources', label: 'Design Vault', sub: '32+ Curated Links', icon: Compass },
   ];

@@ -166,7 +166,7 @@ export const StickyRevealFooter: React.FC<StickyRevealFooterProps> = () => {
                 </li>
                 <li>
                   <a href="#widgets" onClick={() => sounds.playClick()} className="hover:text-emerald-400 transition-colors flex items-center gap-1.5 group">
-                    <span>Essential Apps (Beta)</span>
+                    <span>Essential Widgets</span>
                     <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </a>
                 </li>

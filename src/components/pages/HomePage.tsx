@@ -393,7 +393,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               </div>
             </div>
 
-            {/* Portal 3: Essential Apps & Widgets */}
+            {/* Portal 3: Essential Widgets Studio */}
             <div
               onClick={() => onNavigate('widgets')}
               className="p-8 2xl:p-10 rounded-3xl bg-white border border-[#0a0a0a]/10 shadow-sm hover:shadow-2xl cursor-pointer group flex flex-col justify-between min-h-[340px] transition-all hover:-translate-y-1"
@@ -404,14 +404,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                     <Smartphone className="h-5 w-5 text-amber-400" />
                   </span>
                   <span className="px-3.5 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200/60 font-mono text-xs font-bold">
-                    Nothing (R) Matrix
+                    Interactive Widgets
                   </span>
                 </div>
                 <h4 className="font-main font-bold text-2xl text-[#111111] group-hover:text-[#366299] transition-colors leading-tight">
-                  Essential Apps & Widgets (Beta)
+                  Essential Widgets Studio
                 </h4>
                 <p className="text-sm text-[#555555] leading-relaxed">
-                  12 interactive dot-matrix widgets, Halley's orbital tracker, Calm dandelion breathing, and turntable audio visualizer.
+                  12 production-ready modular UI widgets engineered for project workflows — Halley's orbital tracker, Calm dandelion breathing, and tactile audio controls.
                 </p>
               </div>
 

@@ -63,7 +63,7 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
     { id: 'home', label: 'Overview' },
     { id: 'workspace', label: 'Workspace & Tools' },
     { id: 'framework', label: 'Product Framework' },
-    { id: 'widgets', label: 'Essential Apps' },
+    { id: 'widgets', label: 'Essential Widgets' },
     { id: 'laws', label: 'Laws of UX' },
     { id: 'resources', label: 'Design Vault', badge: '100+' },
   ];

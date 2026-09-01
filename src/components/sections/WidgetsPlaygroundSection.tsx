@@ -174,10 +174,10 @@ export const WidgetsPlaygroundSection: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <h1 className="text-4xl sm:text-6xl font-serif tracking-tight text-[#111111] font-normal leading-tight">
-              Essential Apps <span className="font-sans not-italic text-2xl sm:text-3xl text-[#555555] font-normal">(Beta)</span>
+              Essential Widgets <span className="font-sans not-italic text-2xl sm:text-3xl text-[#555555] font-normal">(Interactive Studio)</span>
             </h1>
             <p className="mt-2 text-sm sm:text-base text-[#555555] font-mono font-normal">
-              Make your homescreen yours — build apps and browse community creations.
+              Modular UI widgets engineered for your workflows — customize, benchmark, and integrate directly into your projects.
             </p>
           </div>
 
