@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { TopNavbar, PageView } from './components/common/TopNavbar';
 import { StickyRevealFooter } from './components/motion/StickyRevealFooter';
 import { PageCurtains } from './components/motion/PageCurtains';
+import { LoadingScreen } from './components/common/LoadingScreen';
 
 // Page Views
 import { HomePage } from './components/pages/HomePage';
@@ -20,6 +21,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const App: React.FC = () => {
   const [activePage, setActivePage] = useState<PageView>('home');
+  const [isLoading, setIsLoading] = useState(true);
 
   // Initialize Lenis Smooth Scrolling and sync with GSAP ScrollTrigger
   useEffect(() => {
@@ -60,6 +62,11 @@ export const App: React.FC = () => {
 
   return (
     <div className="voral-viewport-frame font-main min-h-screen bg-[#F4F3F1] text-[#111111] relative flex flex-col">
+      {/* Sabi OS Boot Sequence Loading Screen */}
+      {isLoading && (
+        <LoadingScreen onComplete={() => setIsLoading(false)} />
+      )}
+
       {/* Top Fixed / Sticky Navigation Bar */}
       <TopNavbar
         activePage={activePage}
