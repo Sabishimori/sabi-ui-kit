@@ -369,5 +369,25 @@ export const ALL_21_LAWS: LawOfUX[] = [
       'Provide easy resume points when users leave an incomplete task.'
     ],
     exampleUse: 'Notion onboarding checklist, LinkedIn profile completion widget.'
+  },
+  {
+    id: 'steering-law',
+    num: '22',
+    name: 'Steering Law (Minimize Target Distance)',
+    category: 'Cognitive & Performance',
+    origin: 'Johnny Accot & Shumin Zhai (Xerox PARC / IBM)',
+    year: '1997',
+    summary: 'The time required to navigate or steer a pointer through a 2D tunnel or trajectory path is directly proportional to the distance of the path and inversely proportional to the tunnel width.',
+    keyTakeaway: 'Minimize physical pointer travel distance, eliminate diagonal cursor traps in nested sub-menus, and bring contextual tools directly to the active cursor point.',
+    formula: 'T = a + b · ∫ (ds / W(s))  [Steering Time ∝ Distance / Tunnel Width]',
+    guidelines: [
+      'Keep nested dropdown sub-menus immediately adjacent to parent hover targets.',
+      'Implement direction-aware cursor trajectory buffers (angle-of-approach safety triangles) so users do not lose hover state when moving diagonally.',
+      'Position contextual floating toolbars and action palettes right at the active mouse selection or cursor point.',
+      'Avoid long, narrow multi-level cascading menus that require extreme motor precision.'
+    ],
+    exampleUse: 'macOS menu bar hover trajectory triangle buffer, Figma contextual canvas floating toolbars, Slack message hover quick-action bar.'
   }
 ];
+
+export const ALL_LAWS_OF_UX = ALL_21_LAWS;

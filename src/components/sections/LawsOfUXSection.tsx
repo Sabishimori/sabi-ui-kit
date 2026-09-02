@@ -133,14 +133,14 @@ export const LawsOfUXSection: React.FC = () => {
                 <Brain className="h-3.5 w-3.5 text-rose-400" />
               </span>
               <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#111111]">
-                COGNITIVE PSYCHOLOGY & UX HEURISTICS &bull; ALL 21 LAWS OF UX
+                COGNITIVE PSYCHOLOGY & UX HEURISTICS &bull; ALL {ALL_21_LAWS.length} LAWS OF UX
               </span>
             </div>
             <h1 className="text-3xl sm:text-5xl 2xl:text-6xl font-main font-black tracking-tight text-[#111111] leading-tight">
-              The 21 Laws of UX & Cognitive Laboratory
+              The {ALL_21_LAWS.length} Laws of UX & Cognitive Laboratory
             </h1>
             <p className="text-base sm:text-lg text-[#555555] leading-relaxed">
-              Compiled by Jon Yablonski (<a href="https://lawsofux.com/" target="_blank" rel="noreferrer" className="text-[#111111] font-bold underline hover:text-[#366299]">lawsofux.com</a>). Every design decision in Sabi Kit is anchored to verified human cognitive psychology and behavioral ergonomics.
+              Compiled by Jon Yablonski (<a href="https://lawsofux.com/" target="_blank" rel="noreferrer" className="text-[#111111] font-bold underline hover:text-[#366299]">lawsofux.com</a>). Every design decision in Sabi Kit is anchored to verified human cognitive psychology, motor steering models, and behavioral ergonomics.
             </p>
           </div>
 
@@ -152,12 +152,12 @@ export const LawsOfUXSection: React.FC = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search all 21 laws, formulas, origins..."
+                placeholder={`Search all ${ALL_21_LAWS.length} laws, formulas, origins...`}
                 className="w-full pl-10 pr-4 py-3 rounded-2xl bg-white border border-[#0a0a0a]/12 text-xs font-mono text-[#111111] placeholder:text-[#666666] focus:outline-none focus:ring-2 focus:ring-[#111111] shadow-sm"
               />
             </div>
             <div className="flex items-center justify-between text-xs font-mono text-[#666666] px-1">
-              <span>Showing {filteredLaws.length} of 21 Laws</span>
+              <span>Showing {filteredLaws.length} of {ALL_21_LAWS.length} Laws</span>
               {searchQuery && (
                 <button 
                   onClick={() => setSearchQuery('')}
@@ -175,7 +175,7 @@ export const LawsOfUXSection: React.FC = () => {
           {(['All', 'Heuristic', 'Gestalt', 'Cognitive & Performance'] as CategoryFilter[]).map((cat) => {
             const isActive = activeCategory === cat;
             const count = cat === 'All' 
-              ? 21 
+              ? ALL_21_LAWS.length 
               : ALL_21_LAWS.filter(l => l.category === cat).length;
 
             return (
